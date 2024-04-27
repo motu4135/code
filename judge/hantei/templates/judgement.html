@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!--
+    以下は仮の表示内容
+    判定アルゴリズム記述後、判定結果が表示されるように修正
+    -->
+<div class="container">
+    <h2>全学共通科目（必修）</h2>
+    <p>取得単位数： {{ acquired_credits_cat1 }}単位</p>
+    <p>必要単位数： {{ required_cat1 }}単位</p>
+    <p>判定： {{ judge_flag1 }}</p>
+
+    {% if not_acquired_subjects_cat1 %}
+    <h3>未取得科目</h3>
+    <ul>
+        {% for subject in not_acquired_subjects_cat1 %}
+        <li>{{ subject.name }} ({{ subject.credits }}単位)</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>すべての単位を取得済みです。</p>
+    {% endif %}
+</div>
+
+<div class="container">
+    <h2>全学共通科目（選択必修-外国語）</h2>
+    <p>取得単位数： {{ acquired_credits_cat2 }}単位</p>
+    <p>必要単位数： {{ required_cat2 }}単位</p>
+    <p>判定： {{ judge_flag2 }}</p>
+</div>
+
+<div class="container">
+    <h2>全学共通科目（選択必修-体育）</h2>
+    <p>取得単位数： {{ acquired_credits_cat3 }}単位</p>
+    <p>必要単位数： {{ required_cat3 }}単位</p>
+    <p>判定： {{ judge_flag3 }}</p>
+
+    
+    {% if not_acquired_subjects_cat3 %}
+    <h3>未取得科目</h3>
+    <ul>
+        <li>{{ not_acquired_subjects_cat3 }}</li>
+    </ul>
+    {% endif %}
+</div>
+
+<div class="container">
+    <h2>全学共通科目（選択必修-総合科目）</h2>
+    <p>取得単位数： {{ acquired_credits_cat4 }}単位</p>
+</div>
+
+<!--
+<div class="container">
+    <h2>全学共通科目（選択必修-留学生科目）</h2>
+    <p>取得単位数： {{ acquired_credits_cat5 }}単位</p>
+</div>
+-->
+
+<div class="container">
+    <h2>学部基礎科目（教養-人文）</h2>
+    <p>取得単位数： {{ acquired_credits_cat6 }}単位</p>
+    <p>必要単位数： {{ required_cat6 }}単位</p>
+    <p>判定： {{ judge_flag4 }}</p>
+</div>
+
+<div class="container">
+    <h2>学部基礎科目（教養-社会）</h2>
+    <p>取得単位数： {{ acquired_credits_cat7 }}単位</p>
+    <p>必要単位数： {{ required_cat7 }}単位</p>
+    <p>判定： {{ judge_flag5 }}</p>
+</div>
+
+<div class="container">
+    <h2>学部基礎科目（教養-自然）</h2>
+    <p>取得単位数： {{ acquired_credits_cat8 }}単位</p>
+    <p>必要単位数： {{ required_cat8 }}単位</p>
+    <p>判定： {{ judge_flag6 }}</p>
+</div>
+
+<div class="container">
+    <h2>学部基礎科目（教養）</h2>
+    <p>取得単位数： {{ excess_ge }}単位</p>
+    <p>必要単位数： {{ excess_ge_required }}単位</p>
+    <p>判定： {{ judge_flag7 }}</p>
+</div>
+
+<div class="container">
+    <h2>学部基礎科目（情報）</h2>
+    <p>取得単位数： {{ acquired_credits_cat9 }}単位</p>
+    <p>必要単位数： {{ required_cat9 }}単位</p>
+    <p>判定： {{ judge_flag8 }}</p>
+</div>
+
+<div class="container">
+    <h2>全学共通科目（選択必修・選択）＋学部基礎科目</h2>
+    <p>取得単位数： {{ acquired_credits_common }}単位</p>
+    <p>必要単位数： {{ subtotal_required }}単位</p>
+    <p>判定： {{ judge_flag9 }}</p>
+</div>
+
+{% if acquired_credits_cat1 <= 5 or acquired_credits_common <= 10 %}
+<h1>全然だめやんか。卒業は無理でっせ、草。</h1>
+{% elif acquired_credits_cat1 <= 7 or acquired_credits_common <= 16 %}
+<h1>ぼちぼちやな。もう少し頑張りなはれ。</h1>
+{% else %}
+<h1>順調でんな。その調子でっせ。</h1>
+{% endif %}
+<a href="{% url 'hantei:subject_list' %}">科目リストに戻る</a>
+
+{% endblock %} 

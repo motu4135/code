@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <h1>登録科目の確認</h1>
+    <h2>以下の科目を登録しますか</h2>
+    <ul>
+        {% for subject in subjects %}
+            <li>{{ subject.name }}</li>
+        {% endfor %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="action" value="confirm">確定</button>
+        <button type="submit" name="action" value="back">修正</button>
+    </form>
+    
+{% endblock %} 

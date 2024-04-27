@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>単位取得済み科目の登録</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.subjects.label_tag }}
+        {{ form.subjects }}
+        <button type="submit">判定</button>
+    </form>
+{% endblock %} 
